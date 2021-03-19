@@ -94,7 +94,6 @@ CREATE TABLE tb_address(
     FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
 );
 
-
 DROP TABLE IF EXISTS tb_telephone;
 CREATE TABLE tb_telephone(
     id_telephone int AUTO_INCREMENT,
@@ -107,10 +106,6 @@ CREATE TABLE tb_telephone(
     KEY (id_customer),
     FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
 );
-
-
-
-
 
 DROP TABLE IF EXISTS tb_product_category;
 CREATE TABLE tb_product_category(
@@ -157,8 +152,6 @@ CREATE TABLE tb_order_items(
     FOREIGN KEY (id_order) REFERENCES tb_order (id_order),
     FOREIGN KEY (id_product) REFERENCES tb_product (id_product)
 );
-
-
 
 DROP TABLE IF EXISTS tb_delivery;
 CREATE TABLE tb_delivery(
