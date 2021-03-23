@@ -1,6 +1,6 @@
 package com.churrascoprime.api.services;
 
-import com.churrascoprime.api.dtos.CategoryDto;
+import com.churrascoprime.api.dtos.category.CategoryDto;
 import com.churrascoprime.api.models.Category;
 import com.churrascoprime.api.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

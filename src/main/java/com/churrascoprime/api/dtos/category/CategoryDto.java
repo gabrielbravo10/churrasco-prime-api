@@ -1,17 +1,18 @@
-package com.churrascoprime.api.dtos;
+package com.churrascoprime.api.dtos.category;
 
 import javax.validation.constraints.NotNull;
 
-public class CityDto {
+public class CategoryDto {
 
     private String id;
     @NotNull
     private String name;
 
-    public CityDto() {
+    public CategoryDto() {
+
     }
 
-    public CityDto(String id, String name) {
+    public CategoryDto(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,4 +32,5 @@ public class CityDto {
     public void setName(String name) {
         this.name = name;
     }
+
 }

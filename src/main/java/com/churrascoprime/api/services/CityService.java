@@ -1,6 +1,6 @@
 package com.churrascoprime.api.services;
 
-import com.churrascoprime.api.dtos.CityDto;
+import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.City;
 import com.churrascoprime.api.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,8 @@ import java.util.Date;
 @Service
 public class CityService {
 
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+    private static final String NOT_FOUND = "city.notFound";
 
     @Autowired
     public CityService(CityRepository cityRepository) {
@@ -21,23 +22,21 @@ public class CityService {
     }
 
     public City findById(Long idCity) {
-        return cityRepository.findById(idCity).orElse(null);
+        return cityRepository.findById(idCity).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
     }
 
     public Page<City> findAll(Pageable pageable) {
         return cityRepository.findAllByDateDeletedIsNull(pageable);
     }
 
-    public City save(CityDto cityDto) {
-        City city = new City();
-        city.setName(cityDto.getName());
+    public City save(City city) {
         return cityRepository.save(city);
     }
 
-    public City update(Long idCity, City city) {
-        City cityToUpdate = findById(idCity);
-        cityToUpdate.setName(city.getName());
-        return cityRepository.save(cityToUpdate);
+    public City update(City updatedCity) {
+        City city = findById(updatedCity.getIdCity());
+        city.update(updatedCity);
+        return city;
     }
 
     public void delete(Long idCity) {

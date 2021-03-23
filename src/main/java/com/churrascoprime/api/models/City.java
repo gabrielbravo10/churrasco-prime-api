@@ -82,4 +82,8 @@ public class City {
     public void setDateDeleted(Date dateDeleted) {
         this.dateDeleted = dateDeleted;
     }
+
+    public void update(City updatedCity) {
+        this.name = updatedCity.getName();
+    }
 }
