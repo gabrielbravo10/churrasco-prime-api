@@ -1,47 +1,72 @@
 package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.category.CategoryDto;
+import com.churrascoprime.api.dtos.category.CategoryFormDto;
 import com.churrascoprime.api.models.Category;
 import com.churrascoprime.api.services.CategoryService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-    
+
     private final CategoryService categoryService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, ModelMapper modelMapper) {
         this.categoryService = categoryService;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/{idCategory}")
-    public ResponseEntity<Category> show(@PathVariable Long idCategory) {
-        return ResponseEntity.ok(categoryService.findById(idCategory));
+    public ResponseEntity<CategoryDto> show(@PathVariable Long idCategory) {
+        CategoryDto category = modelMapper.map(categoryService.findById(idCategory), CategoryDto.class);
+        return ResponseEntity.ok(category);
     }
 
     @GetMapping
-    public ResponseEntity<Page<Category>> index(Pageable pageable) {
-        return ResponseEntity.ok(categoryService.findAll(pageable));
+    public ResponseEntity<Page<CategoryDto>> index(@PageableDefault(sort = "name") Pageable pageable) {
+        Page<CategoryDto> categories = categoryService.findAll(pageable)
+                .map(category -> modelMapper.map(category, CategoryDto.class));
+        return ResponseEntity.ok(categories);
     }
 
+    @Transactional
     @PostMapping
-    public  ResponseEntity<Category> store(@RequestBody CategoryDto categoryDto){
-        return ResponseEntity.ok(categoryService.save(categoryDto));
+    public ResponseEntity<CategoryDto> store(@Valid @RequestBody CategoryFormDto categoryFormDto,
+            UriComponentsBuilder uriComponentsBuilder) {
+        Category category = modelMapper.map(categoryFormDto, Category.class);
+        CategoryDto newCategory = modelMapper.map(categoryService.save(category), CategoryDto.class);
+        URI uri = uriComponentsBuilder.path("/categories{id}").buildAndExpand(newCategory.getId()).toUri();
+        return ResponseEntity.created(uri).body(newCategory);
     }
 
+    @Transactional
     @PutMapping("/{idCategory}")
-    public ResponseEntity<Category> update(@PathVariable Long idCategory, @RequestBody Category category) {
-        return ResponseEntity.ok(categoryService.update(idCategory, category));
+    public ResponseEntity<CategoryDto> update(@PathVariable Long idCategory,
+            @Valid @RequestBody CategoryDto categoryFormDto) {
+        Category category = modelMapper.map(categoryFormDto, Category.class);
+        category.setIdCategory(idCategory);
+        CategoryDto updatedCategory = modelMapper.map(categoryService.update(category), CategoryDto.class);
+        return ResponseEntity.ok().body(updatedCategory);
     }
 
+    @Transactional
     @DeleteMapping("/{idCategory}")
-    public ResponseEntity<?> delete(@PathVariable Long idCategory){
+    public ResponseEntity<?> delete(@PathVariable Long idCategory) {
         categoryService.delete(idCategory);
         return ResponseEntity.noContent().build();
     }

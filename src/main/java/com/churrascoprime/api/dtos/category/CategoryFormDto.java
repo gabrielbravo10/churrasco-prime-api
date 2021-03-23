@@ -1,15 +1,20 @@
 package com.churrascoprime.api.dtos.category;
 
-public class CategoryDto {
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class CategoryFormDto {
 
     private String id;
+
+    @NotNull
+    @Size(min = 3, max = 100)
     private String name;
 
-    public CategoryDto() {
-
+    public CategoryFormDto() {
     }
 
-    public CategoryDto(String id, String name) {
+    public CategoryFormDto(String id, String name) {
         this.id = id;
         this.name = name;
     }

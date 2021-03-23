@@ -1,6 +1,6 @@
 package com.churrascoprime.api.services;
 
-import com.churrascoprime.api.dtos.category.CategoryDto;
+import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.Category;
 import com.churrascoprime.api.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,32 +12,31 @@ import java.util.Date;
 
 @Service
 public class CategoryService {
-    
-    private CategoryRepository categoryRepository;
+
+    private final CategoryRepository categoryRepository;
+    private static final String NOT_FOUND = "category.notFound";
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository){
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
     public Category findById(Long idCategory) {
-        return categoryRepository.findById(idCategory).orElse(null);
+        return categoryRepository.findById(idCategory).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
     }
 
     public Page<Category> findAll(Pageable pageable) {
         return categoryRepository.findAllByDateDeletedIsNull(pageable);
     }
 
-    public Category save(CategoryDto categoryDto) {
-        Category category = new Category();
-        category.setName(categoryDto.getName());
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
-    public Category update(Long idCategory, Category category) {
-        Category categoryToUpdate = findById(idCategory);
-        categoryToUpdate.setName(category.getName());
-        return categoryRepository.save(categoryToUpdate);
+    public Category update(Category updatedCategory) {
+        Category category = findById(updatedCategory.getIdCategory());
+        category.update(updatedCategory);
+        return category;
     }
 
     public void delete(Long idCategory) {
@@ -45,10 +44,4 @@ public class CategoryService {
         category.setDateDeleted(new Date());
         categoryRepository.save(category);
     }
-
-
-
-
-
-
 }

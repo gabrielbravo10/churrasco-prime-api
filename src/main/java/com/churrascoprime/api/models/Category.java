@@ -46,6 +46,10 @@ public class Category {
         return idCategory;
     }
 
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
+    }
+
     public String getName() {
         return name;
     }
@@ -73,8 +77,12 @@ public class Category {
     public Date getDateDeleted() {
         return dateDeleted;
     }
+
     public void setDateDeleted(Date dateDeleted) {
         this.dateDeleted = dateDeleted;
     }
 
+    public void update(Category updatedCategory) {
+        this.name = updatedCategory.getName();
+    }
 }
