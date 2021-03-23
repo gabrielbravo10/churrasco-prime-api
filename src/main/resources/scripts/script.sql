@@ -60,18 +60,17 @@ CREATE TABLE tb_city (
 DROP TABLE IF EXISTS tb_customer;
 CREATE TABLE tb_customer(
     id_customer int AUTO_INCREMENT,
-    cpf_or_cnpj varchar(255) DEFAULT NULL,
+    cpf varchar(255) DEFAULT NULL,
     first_name varchar(255) NOT NULL,
     last_name varchar(255) DEFAULT NULL,
     email varchar(255) DEFAULT NULL,
     password varchar(255) DEFAULT NULL,
-    customer_type int DEFAULT NULL,
     date_created timestamp NOT NULL,
     date_updated timestamp,
     date_deleted timestamp,
     PRIMARY KEY (id_customer),
     UNIQUE KEY (email),
-    UNIQUE KEY (cpf_or_cnpj)
+    UNIQUE KEY (cpf)
 );
 
 DROP TABLE IF EXISTS tb_address;
