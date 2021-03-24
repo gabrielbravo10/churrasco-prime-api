@@ -7,15 +7,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "tb_category")
-public class Category {
+@Table(name = "tb_provider")
+public class Provider {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_category")
-    private Long idCategory;
+    @Column(name = "id_provider")
+    private Long idProvider;
 
     private String name;
+    private String cnpj;
+    private String imagemUrl;
+    private char active;
+    private double rating;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,25 +34,30 @@ public class Category {
     @Column(name = "date_deleted")
     private Date dateDeleted;
 
-    public Category() {
-        
+    public Provider() {
+
     }
 
-    public Category(Long idCategory, String name, Date dateCreated, Date dateUpdated, Date dateDeleted) {
+    public Provider(Long idProvider, String name, String cnpj, String imagemUrl, char active, double rating,
+            Date dateCreated, Date dateUpdated, Date dateDeleted) {
 
-        this.idCategory = idCategory;
+        this.idProvider = idProvider;
         this.name = name;
+        this.cnpj = cnpj;
+        this.imagemUrl = imagemUrl;
+        this.active = active;
+        this.rating = rating;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
         this.dateDeleted = dateDeleted;
     }
 
-    public Long getIdCategory() {
-        return idCategory;
+    public Long getIdProvider() {
+        return idProvider;
     }
 
-    public void setIdCategory(Long idCategory) {
-        this.idCategory = idCategory;
+    public void setIdProvider(Long idProvider) {
+        this.idProvider = idProvider;
     }
 
     public String getName() {
@@ -57,6 +66,38 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getImagemUrl() {
+        return imagemUrl;
+    }
+
+    public void setImagemUrl(String imagemUrl) {
+        this.imagemUrl = imagemUrl;
+    }
+
+    public char getActive() {
+        return active;
+    }
+
+    public void setActive(char active) {
+        this.active = active;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
     public Date getDateCreated() {
@@ -83,7 +124,8 @@ public class Category {
         this.dateDeleted = dateDeleted;
     }
 
-    public void update(Category updatedCategory) {
-        this.name = updatedCategory.getName();
+    public void update(Provider updatedProvider) {
+        this.name = updatedProvider.getName();
     }
+
 }
