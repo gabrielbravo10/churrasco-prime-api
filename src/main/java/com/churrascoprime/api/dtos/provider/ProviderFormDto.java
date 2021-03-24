@@ -5,47 +5,29 @@ import javax.validation.constraints.Size;
 
 public class ProviderFormDto {
 
-    private String id;
+    private Long idProvider;
 
     @NotNull
     @Size(min = 3, max = 100)
     private String name;
 
     @NotNull
-    @Size(min = 3, max = 100)
+    @Size(min = 14, max = 14)
     private String cnpj;
 
     @NotNull
-    @Size(min = 3, max = 1000)
-    private String imagemUrl;
+    private String imageUrl;
 
-    @NotNull
-    @Size(min = 3, max = 100)
-    private char active;
+    private boolean active;
 
-    @NotNull
-    @Size(min = 3, max = 100)
-    private double rating;
+    private Double rating;
 
-    public ProviderFormDto() {
-
+    public Long getIdProvider() {
+        return idProvider;
     }
 
-    public ProviderFormDto(String id, String name, String cnpj, String imagemUrl, char active, double rating) {
-        this.id = id;
-        this.name = name;
-        this.cnpj = cnpj;
-        this.imagemUrl = imagemUrl;
-        this.active = active;
-        this.rating = rating;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setIdProvider(Long idProvider) {
+        this.idProvider = idProvider;
     }
 
     public String getName() {
@@ -64,28 +46,27 @@ public class ProviderFormDto {
         this.cnpj = cnpj;
     }
 
-    public String getImagemUrl() {
-        return imagemUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public char getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(char active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
-
 }

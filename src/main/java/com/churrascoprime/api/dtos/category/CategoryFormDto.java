@@ -5,26 +5,18 @@ import javax.validation.constraints.Size;
 
 public class CategoryFormDto {
 
-    private String id;
+    private Long idCategory;
 
     @NotNull
     @Size(min = 3, max = 100)
     private String name;
 
-    public CategoryFormDto() {
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public CategoryFormDto(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getName() {

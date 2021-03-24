@@ -14,7 +14,8 @@ CREATE TABLE tb_provider(
     date_updated timestamp,
     date_deleted timestamp,
     PRIMARY KEY (id_provider),
-    UNIQUE KEY (name)
+    UNIQUE KEY (name),
+    UNIQUE KEY (cnpj)
 );
 
 DROP TABLE IF EXISTS tb_category;
@@ -43,7 +44,7 @@ CREATE TABLE tb_product(
     date_updated timestamp,
     date_deleted timestamp,
     PRIMARY KEY (id_product),
-    FOREIGN KEY (id_provider) REFERENCES tb_provider(id_provider)
+    CONSTRAINT fk_product_provider FOREIGN KEY (id_provider) REFERENCES tb_provider(id_provider)
 );
 
 DROP TABLE IF EXISTS tb_city;
@@ -110,10 +111,9 @@ DROP TABLE IF EXISTS tb_product_category;
 CREATE TABLE tb_product_category(
     id_product int NOT NULL,
     id_category int NOT NULL,
-    KEY (id_product),
-    KEY (id_category),
-    FOREIGN KEY (id_product) REFERENCES tb_product (id_product),
-    FOREIGN KEY (id_category) REFERENCES tb_category (id_category)
+    PRIMARY KEY (id_product, id_category),
+    CONSTRAINT fk_product_category_product FOREIGN KEY (id_product) REFERENCES tb_product (id_product),
+    CONSTRAINT fk_product_category_category FOREIGN KEY (id_category) REFERENCES tb_category (id_category)
 );
 
 DROP TABLE IF EXISTS tb_order;

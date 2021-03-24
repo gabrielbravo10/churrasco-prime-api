@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class CityFormDto {
 
-    private String id;
+    private Long idCity;
 
     @NotNull
     @Size(min = 3, max = 100)
@@ -14,17 +14,17 @@ public class CityFormDto {
     public CityFormDto() {
     }
 
-    public CityFormDto(String id, String name) {
-        this.id = id;
+    public CityFormDto(Long idCity, @NotNull @Size(min = 3, max = 100) String name) {
+        this.idCity = idCity;
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public Long getIdCity() {
+        return idCity;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCity(Long idCity) {
+        this.idCity = idCity;
     }
 
     public String getName() {

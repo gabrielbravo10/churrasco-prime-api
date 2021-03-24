@@ -52,7 +52,6 @@ public class ResourceExceptionHandler {
         return new ErrorDto(messageSource.getMessage(exception.getMessage(), null, LocaleContextHolder.getLocale()));
     }
 
-
 //    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
 //    @ExceptionHandler(NegocioException.class)
 //    public ErroDto handle(NegocioException exception) {

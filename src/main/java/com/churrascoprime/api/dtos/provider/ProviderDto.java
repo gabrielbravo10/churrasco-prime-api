@@ -2,33 +2,18 @@ package com.churrascoprime.api.dtos.provider;
 
 public class ProviderDto {
 
-    private String id;
-
+    private Long idProvider;
     private String name;
-    private String cnpj;
-    private String imagemUrl;
-    private char active;
-    private double rating;
+    private String imageUrl;
+    private boolean active;
+    private Double rating;
 
-    public ProviderDto() {
-
+    public Long getIdProvider() {
+        return idProvider;
     }
 
-    public ProviderDto(String id, String name, String cnpj, String imagemUrl, char active, double rating) {
-        this.id = id;
-        this.name = name;
-        this.cnpj = cnpj;
-        this.imagemUrl = imagemUrl;
-        this.active = active;
-        this.rating = rating;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setIdProvider(Long idProvider) {
+        this.idProvider = idProvider;
     }
 
     public String getName() {
@@ -39,35 +24,27 @@ public class ProviderDto {
         this.name = name;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getImagemUrl() {
-        return imagemUrl;
-    }
-
-    public void setImagemUrl(String imagemUrl) {
-        this.imagemUrl = imagemUrl;
-    }
-
-    public char getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(char active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }

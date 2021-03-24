@@ -49,7 +49,7 @@ public class CityController {
                                          UriComponentsBuilder uriComponentsBuilder) {
         CityModel city = modelMapper.map(cityFormDto, CityModel.class);
         CityDto newCity = modelMapper.map(cityService.save(city), CityDto.class);
-        URI uri = uriComponentsBuilder.path("/cities/{id}").buildAndExpand(newCity.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/cities/{id}").buildAndExpand(newCity.getIdCity()).toUri();
         return ResponseEntity.created(uri).body(newCity);
     }
 

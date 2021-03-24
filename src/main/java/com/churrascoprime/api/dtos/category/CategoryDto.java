@@ -2,24 +2,23 @@ package com.churrascoprime.api.dtos.category;
 
 public class CategoryDto {
 
-    private String id;
+    private Long idCategory;
     private String name;
 
     public CategoryDto() {
-
     }
 
-    public CategoryDto(String id, String name) {
-        this.id = id;
+    public CategoryDto(Long idCategory, String name) {
+        this.idCategory = idCategory;
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public Long getIdCategory() {
+        return idCategory;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getName() {
@@ -30,3 +29,4 @@ public class CategoryDto {
         this.name = name;
     }
 }
+

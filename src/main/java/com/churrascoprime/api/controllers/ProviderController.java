@@ -44,17 +44,17 @@ public class ProviderController {
     }
 
     @Transactional
-    @PutMapping
+    @PostMapping
     public ResponseEntity<ProviderDto> store(@Valid @RequestBody ProviderFormDto providerFormDto, UriComponentsBuilder uriComponentsBuilder) {
         ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
         ProviderDto newProvider = modelMapper.map(providerService.save(provider), ProviderDto.class);
-        URI uri = uriComponentsBuilder.path("/providers{id}").buildAndExpand(newProvider.getId()).toUri();
+        URI uri = uriComponentsBuilder.path("/providers/{id}").buildAndExpand(newProvider.getIdProvider()).toUri();
         return ResponseEntity.created(uri).body(newProvider);
     }
 
     @Transactional
     @PutMapping("/{idProvider}")
-    public ResponseEntity<ProviderDto> update(@PathVariable Long idProvider, @Valid @RequestBody ProviderDto providerFormDto) { 
+    public ResponseEntity<ProviderDto> update(@PathVariable Long idProvider, @Valid @RequestBody ProviderFormDto providerFormDto) {
         ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
         provider.setIdProvider(idProvider);
         ProviderDto updatedProvider = modelMapper.map(providerService.update(provider), ProviderDto.class);
