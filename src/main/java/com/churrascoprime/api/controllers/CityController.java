@@ -2,7 +2,7 @@ package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.city.CityDto;
 import com.churrascoprime.api.dtos.city.CityFormDto;
-import com.churrascoprime.api.models.City;
+import com.churrascoprime.api.models.CityModel;
 import com.churrascoprime.api.services.CityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class CityController {
     @PostMapping
     public ResponseEntity<CityDto> store(@Valid @RequestBody CityFormDto cityFormDto,
                                          UriComponentsBuilder uriComponentsBuilder) {
-        City city = modelMapper.map(cityFormDto, City.class);
+        CityModel city = modelMapper.map(cityFormDto, CityModel.class);
         CityDto newCity = modelMapper.map(cityService.save(city), CityDto.class);
         URI uri = uriComponentsBuilder.path("/cities/{id}").buildAndExpand(newCity.getId()).toUri();
         return ResponseEntity.created(uri).body(newCity);
@@ -57,7 +57,7 @@ public class CityController {
     @PutMapping("/{idCity}")
     public ResponseEntity<CityDto> update(@PathVariable Long idCity,
                                           @Valid @RequestBody CityFormDto cityFormDto) {
-        City city = modelMapper.map(cityFormDto, City.class);
+        CityModel city = modelMapper.map(cityFormDto, CityModel.class);
         city.setIdCity(idCity);
         CityDto updatedCity = modelMapper.map(cityService.update(city), CityDto.class);
         return ResponseEntity.ok().body(updatedCity);

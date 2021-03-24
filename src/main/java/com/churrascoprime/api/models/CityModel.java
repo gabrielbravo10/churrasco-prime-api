@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tb_city")
-public class City {
+public class CityModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class City {
     @Column(name = "date_deleted")
     private Date dateDeleted;
 
-    public City() {
+    public CityModel() {
     }
 
-    public City(Long idCity, String name, Date dateCreated,
+    public CityModel(Long idCity, String name, Date dateCreated,
                 Date dateUpdated, Date dateDeleted) {
         this.idCity = idCity;
         this.name = name;
@@ -83,7 +83,7 @@ public class City {
         this.dateDeleted = dateDeleted;
     }
 
-    public void update(City updatedCity) {
+    public void update(CityModel updatedCity) {
         this.name = updatedCity.getName();
     }
 }

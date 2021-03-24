@@ -2,7 +2,7 @@ package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.category.CategoryDto;
 import com.churrascoprime.api.dtos.category.CategoryFormDto;
-import com.churrascoprime.api.models.Category;
+import com.churrascoprime.api.models.CategoryModel;
 import com.churrascoprime.api.services.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryDto> store(@Valid @RequestBody CategoryFormDto categoryFormDto,
             UriComponentsBuilder uriComponentsBuilder) {
-        Category category = modelMapper.map(categoryFormDto, Category.class);
+        CategoryModel category = modelMapper.map(categoryFormDto, CategoryModel.class);
         CategoryDto newCategory = modelMapper.map(categoryService.save(category), CategoryDto.class);
         URI uri = uriComponentsBuilder.path("/categories{id}").buildAndExpand(newCategory.getId()).toUri();
         return ResponseEntity.created(uri).body(newCategory);
@@ -58,7 +58,7 @@ public class CategoryController {
     @PutMapping("/{idCategory}")
     public ResponseEntity<CategoryDto> update(@PathVariable Long idCategory,
             @Valid @RequestBody CategoryDto categoryFormDto) {
-        Category category = modelMapper.map(categoryFormDto, Category.class);
+        CategoryModel category = modelMapper.map(categoryFormDto, CategoryModel.class);
         category.setIdCategory(idCategory);
         CategoryDto updatedCategory = modelMapper.map(categoryService.update(category), CategoryDto.class);
         return ResponseEntity.ok().body(updatedCategory);

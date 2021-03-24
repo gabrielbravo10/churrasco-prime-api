@@ -2,7 +2,7 @@ package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.provider.ProviderDto;
 import com.churrascoprime.api.dtos.provider.ProviderFormDto;
-import com.churrascoprime.api.models.Provider;
+import com.churrascoprime.api.models.ProviderModel;
 import com.churrascoprime.api.services.ProviderService;
 
 import org.modelmapper.ModelMapper;
@@ -46,7 +46,7 @@ public class ProviderController {
     @Transactional
     @PutMapping
     public ResponseEntity<ProviderDto> store(@Valid @RequestBody ProviderFormDto providerFormDto, UriComponentsBuilder uriComponentsBuilder) {
-        Provider provider = modelMapper.map(providerFormDto, Provider.class);
+        ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
         ProviderDto newProvider = modelMapper.map(providerService.save(provider), ProviderDto.class);
         URI uri = uriComponentsBuilder.path("/providers{id}").buildAndExpand(newProvider.getId()).toUri();
         return ResponseEntity.created(uri).body(newProvider);
@@ -55,7 +55,7 @@ public class ProviderController {
     @Transactional
     @PutMapping("/{idProvider}")
     public ResponseEntity<ProviderDto> update(@PathVariable Long idProvider, @Valid @RequestBody ProviderDto providerFormDto) { 
-        Provider provider = modelMapper.map(providerFormDto, Provider.class);
+        ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
         provider.setIdProvider(idProvider);
         ProviderDto updatedProvider = modelMapper.map(providerService.update(provider), ProviderDto.class);
         return ResponseEntity.ok().body(updatedProvider);
