@@ -12,15 +12,13 @@ public class ProviderFormDto {
     private String name;
 
     @NotNull
-    @Size(min = 14, max = 14)
+    @Size(min = 14, max = 15)
     private String cnpj;
 
     @NotNull
     private String imageUrl;
 
     private boolean active;
-
-    private Double rating;
 
     public Long getIdProvider() {
         return idProvider;
@@ -60,13 +58,5 @@ public class ProviderFormDto {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
     }
 }
