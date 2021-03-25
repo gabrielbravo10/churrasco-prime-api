@@ -1,24 +1,12 @@
-package com.churrascoprime.api.models;
+package com.churrascoprime.api.dtos.customer;
 
-import javax.persistence.*;
+public class CustomerDto {
 
-@Entity
-@Table(name = "tb_customer")
-public class CustomerModel extends BaseModel{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_customer")
     private Long idCustomer;
-
     private String cpf;
-
     private String firstName;
-
-    private String lastName;
-
+    private String lasttName;
     private String email;
-
     private String password;
 
     public Long getIdCustomer() {
@@ -44,13 +32,13 @@ public class CustomerModel extends BaseModel{
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
-    public String getLastName() {
-        return lastName;
+
+    public String getLasttName() {
+        return lasttName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLasttName(String lasttName) {
+        this.lasttName = lasttName;
     }
 
     public String getEmail() {
@@ -68,13 +56,4 @@ public class CustomerModel extends BaseModel{
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public void update(CustomerModel updatedCustomer) {
-        this.cpf = updatedCustomer.getCpf();
-        this.firstName = updatedCustomer.getFirstName();
-        this.lastName = updatedCustomer.getLastName();
-        this.email = updatedCustomer.getEmail();
-        this.password = updatedCustomer.getPassword();
-    }
-
 }
