@@ -2,7 +2,6 @@ package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.customer.CustomerDto;
 import com.churrascoprime.api.dtos.customer.CustomerFormDto;
-import com.churrascoprime.api.dtos.provider.ProviderFormDto;
 import com.churrascoprime.api.models.CustomerModel;
 import com.churrascoprime.api.services.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -45,7 +44,7 @@ public class CustomerController {
     
     @Transactional
     @PostMapping
-    public ResponseEntity<CustomerDto> store(@Valid @RequestBody ProviderFormDto customerFormDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<CustomerDto> store(@Valid @RequestBody CustomerFormDto customerFormDto, UriComponentsBuilder uriComponentsBuilder) {
         CustomerModel customer = modelMapper.map(customerFormDto, CustomerModel.class);
         CustomerDto newCustomer = modelMapper.map(customerService.save(customer), CustomerDto.class);
         URI uri = uriComponentsBuilder.path("/customers/{id}").buildAndExpand(newCustomer.getIdCustomer()).toUri();
