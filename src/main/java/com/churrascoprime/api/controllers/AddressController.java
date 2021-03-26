@@ -51,7 +51,7 @@ public class AddressController {
     public ResponseEntity<AddressDto> store(@Valid @RequestBody AddressFormDto addressFormDto, UriComponentsBuilder uriComponentsBuilder) {
         AddressModel address = modelMapper.map(addressFormDto, AddressModel.class);
         AddressDto newAddres = modelMapper.map(addressService.save(address), AddressDto.class);
-        URI uri = uriComponentsBuilder.path("/address/{id}").buildAndExpand(newAddres.getIdAddress()).toUri()
+        URI uri = uriComponentsBuilder.path("/address/{id}").buildAndExpand(newAddres.getIdAddress()).toUri();
         return ResponseEntity.created(uri).body(newAddres);
     }
 
