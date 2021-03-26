@@ -1,7 +1,5 @@
 package com.churrascoprime.api.services;
 
-import org.springframework.stereotype.Service;
-
 import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.CustomerModel;
 import com.churrascoprime.api.repositories.CustomerRepository;
