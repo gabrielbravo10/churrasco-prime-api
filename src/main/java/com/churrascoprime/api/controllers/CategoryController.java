@@ -56,7 +56,7 @@ public class CategoryController {
     @Transactional
     @PutMapping("/{idCategory}")
     public ResponseEntity<CategoryDto> update(@PathVariable Long idCategory,
-                                              @Valid @RequestBody CategoryDto categoryFormDto) {
+                                              @Valid @RequestBody CategoryFormDto categoryFormDto) {
         CategoryModel category = modelMapper.map(categoryFormDto, CategoryModel.class);
         category.setIdCategory(idCategory);
         CategoryDto updatedCategory = modelMapper.map(categoryService.update(category), CategoryDto.class);

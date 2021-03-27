@@ -90,8 +90,8 @@ CREATE TABLE tb_address(
     PRIMARY KEY (id_address),
     KEY (id_city),
     KEY (id_customer),
-    FOREIGN KEY (id_city) REFERENCES tb_city(id_city),
-    FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
+    CONSTRAINT fk_address_city FOREIGN KEY (id_city) REFERENCES tb_city(id_city),
+    CONSTRAINT fk_address_customer FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
 );
 
 DROP TABLE IF EXISTS tb_telephone;

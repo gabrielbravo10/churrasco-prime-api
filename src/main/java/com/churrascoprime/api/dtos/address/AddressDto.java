@@ -77,5 +77,4 @@ public class AddressDto {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-
 }

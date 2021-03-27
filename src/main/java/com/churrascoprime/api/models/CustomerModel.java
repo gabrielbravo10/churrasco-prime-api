@@ -4,8 +4,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_customer")
-public class CustomerModel extends BaseModel{
-    
+public class CustomerModel extends BaseModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_customer")
@@ -13,8 +13,10 @@ public class CustomerModel extends BaseModel{
 
     private String cpf;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
     private String email;
@@ -44,7 +46,7 @@ public class CustomerModel extends BaseModel{
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
@@ -68,7 +70,7 @@ public class CustomerModel extends BaseModel{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public void update(CustomerModel updatedCustomer) {
         this.cpf = updatedCustomer.getCpf();
         this.firstName = updatedCustomer.getFirstName();
@@ -76,5 +78,4 @@ public class CustomerModel extends BaseModel{
         this.email = updatedCustomer.getEmail();
         this.password = updatedCustomer.getPassword();
     }
-
 }

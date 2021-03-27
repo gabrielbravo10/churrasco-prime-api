@@ -138,6 +138,7 @@ public class ProductModel extends BaseModel {
         this.imageUrl = updatedProductModel.getImageUrl();
         this.active = updatedProductModel.isActive();
         this.unitsInStock = updatedProductModel.getUnitsInStock();
+        this.provider = updatedProductModel.getProvider();
         this.categories = updatedProductModel.getCategories();
     }
 }

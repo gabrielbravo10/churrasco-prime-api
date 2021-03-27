@@ -11,6 +11,7 @@ public class AddressModel extends BaseModel {
     @Column(name = "id_address")
     private Long idAddress;
 
+    @Column(name = "zip_code")
     private String zipCode;
 
     private String street;
@@ -21,12 +22,14 @@ public class AddressModel extends BaseModel {
 
     private String neighborhood;
 
-    @ManyToMany
-    @JoinColumn(name = "id_city", foreignKey = @ForeignKey(name = "id_city"))
+    @ManyToOne
+    @JoinColumn(name = "id_city",
+            foreignKey = @ForeignKey(name = "fk_address_city"))
     private CityModel city;
 
-    @ManyToMany
-    @JoinColumn(name = "id_customer", foreignKey = @ForeignKey(name = "id_customer"))
+    @ManyToOne
+    @JoinColumn(name = "id_customer",
+            foreignKey = @ForeignKey(name = "fk_address_customer"))
     private CustomerModel customer;
 
     public Long getIdAddress() {
@@ -37,28 +40,12 @@ public class AddressModel extends BaseModel {
         this.idAddress = idAddress;
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
-
-    public String getComplement() {
-        return complement;
-    }
-
-    public void setComplement(String complement) {
-        this.complement = complement;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getStreet() {
@@ -69,36 +56,53 @@ public class AddressModel extends BaseModel {
         this.street = street;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getNumber() {
+        return number;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
+    }
+
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood;
     }
 
     public CityModel getCity() {
         return city;
     }
 
-    public void setCity(CityModel cityModel) {
-        this.city = cityModel;
+    public void setCity(CityModel city) {
+        this.city = city;
     }
 
     public CustomerModel getCustomer() {
         return customer;
     }
 
-    public void setCustomer(CustomerModel customerModel) {
-        this.customer = customerModel;
+    public void setCustomer(CustomerModel customer) {
+        this.customer = customer;
     }
 
     public void update(AddressModel updateAddressModel) {
-        this.idAddress = updateAddressModel.getIdAddress();
         this.zipCode = updateAddressModel.getZipCode();
         this.street = updateAddressModel.getStreet();
         this.number = updateAddressModel.getNumber();
         this.complement = updateAddressModel.getComplement();
         this.neighborhood = updateAddressModel.getNeighborhood();
+        this.city = updateAddressModel.getCity();
+        this.customer = updateAddressModel.getCustomer();
     }
 }

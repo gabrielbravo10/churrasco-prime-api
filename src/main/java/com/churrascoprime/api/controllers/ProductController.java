@@ -56,10 +56,10 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductDto> store(@Valid @RequestBody ProductFormDto productFormDto,
                                             UriComponentsBuilder uriComponentsBuilder) {
-        ProductModel productModel = modelMapper.map(productFormDto, ProductModel.class);
-        addProvider(productModel, productFormDto);
-        addCategory(productModel, productFormDto);
-        ProductDto newProduct = modelMapper.map(productService.save(productModel), ProductDto.class);
+        ProductModel product = modelMapper.map(productFormDto, ProductModel.class);
+        addProvider(product, productFormDto);
+        addCategory(product, productFormDto);
+        ProductDto newProduct = modelMapper.map(productService.save(product), ProductDto.class);
         URI uri = uriComponentsBuilder.path("/products/{id}").buildAndExpand(newProduct.getIdProduct()).toUri();
         return ResponseEntity.created(uri).body(newProduct);
     }
@@ -68,9 +68,9 @@ public class ProductController {
     @PutMapping("/{idProduct}")
     public ResponseEntity<ProductDto> update(@PathVariable Long idProduct,
                                              @Valid @RequestBody ProductFormDto productFormDto) {
-        ProductModel productModel = modelMapper.map(productFormDto, ProductModel.class);
-        productModel.setIdProduct(idProduct);
-        ProductDto updatedProduct = modelMapper.map(productService.update(productModel), ProductDto.class);
+        ProductModel product = modelMapper.map(productFormDto, ProductModel.class);
+        product.setIdProduct(idProduct);
+        ProductDto updatedProduct = modelMapper.map(productService.update(product), ProductDto.class);
         return ResponseEntity.ok().body(updatedProduct);
     }
 

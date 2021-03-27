@@ -13,24 +13,24 @@ import java.util.Date;
 @Service
 public class CustomerService {
 
-    private final CustomerRepository customerRespository;
+    private final CustomerRepository customerRepository;
     private static final String NOT_FOUND = "customer.notFound";
 
     @Autowired
     public CustomerService(CustomerRepository customerRepository) {
-        this.customerRespository = customerRepository;
+        this.customerRepository = customerRepository;
     }
 
     public CustomerModel findById(Long idCustomer) {
-        return customerRespository.findById(idCustomer).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
+        return customerRepository.findById(idCustomer).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
     }
 
     public Page<CustomerModel> findAll(Pageable pageable) {
-        return customerRespository.findAllByDateDeletedIsNull(pageable);
+        return customerRepository.findAllByDateDeletedIsNull(pageable);
     }
 
     public CustomerModel save(CustomerModel customer) {
-        return customerRespository.save(customer);
+        return customerRepository.save(customer);
     }
 
     public CustomerModel update(CustomerModel updatedCustomer) {
@@ -42,6 +42,6 @@ public class CustomerService {
     public void delete(Long idCustomer) {
         CustomerModel customerModel = findById(idCustomer);
         customerModel.setDateDeleted(new Date());
-        customerRespository.save(customerModel);
+        customerRepository.save(customerModel);
     }
 }

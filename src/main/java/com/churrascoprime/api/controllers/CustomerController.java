@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/cutomers")
+@RequestMapping("/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -30,21 +30,22 @@ public class CustomerController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping("/{idCustomer}/")
+    @GetMapping("/{idCustomer}")
     public ResponseEntity<CustomerDto> show(@PathVariable Long idCustomer) {
         CustomerDto customer = modelMapper.map(customerService.findById(idCustomer), CustomerDto.class);
         return ResponseEntity.ok(customer);
     }
 
     @GetMapping
-    public ResponseEntity<Page<CustomerDto>> index(@PageableDefault(sort = "name") Pageable pageable) {
+    public ResponseEntity<Page<CustomerDto>> index(@PageableDefault(sort = "firstName") Pageable pageable) {
         Page<CustomerDto> customers = customerService.findAll(pageable).map(customer -> modelMapper.map(customer, CustomerDto.class));
         return ResponseEntity.ok(customers);
     }
-    
+
     @Transactional
     @PostMapping
-    public ResponseEntity<CustomerDto> store(@Valid @RequestBody CustomerFormDto customerFormDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<CustomerDto> store(@Valid @RequestBody CustomerFormDto customerFormDto,
+                                             UriComponentsBuilder uriComponentsBuilder) {
         CustomerModel customer = modelMapper.map(customerFormDto, CustomerModel.class);
         CustomerDto newCustomer = modelMapper.map(customerService.save(customer), CustomerDto.class);
         URI uri = uriComponentsBuilder.path("/customers/{id}").buildAndExpand(newCustomer.getIdCustomer()).toUri();
@@ -53,7 +54,7 @@ public class CustomerController {
 
     @Transactional
     @PutMapping("/{idCustomer}")
-    public ResponseEntity<CustomerDto> update(@PathVariable Long idCustomer, @Valid @RequestBody CustomerDto customerFormDto) {
+    public ResponseEntity<CustomerDto> update(@PathVariable Long idCustomer, @Valid @RequestBody CustomerFormDto customerFormDto) {
         CustomerModel customer = modelMapper.map(customerFormDto, CustomerModel.class);
         customer.setIdCustomer(idCustomer);
         CustomerDto updatedCustomer = modelMapper.map(customerService.update(customer), CustomerDto.class);

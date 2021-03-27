@@ -25,12 +25,42 @@ public class AddressFormDto {
 
     private String complement;
 
+    @NotNull
+    private Long city;
+
+    @NotNull
+    private Long customer;
+
     public Long getIdAddress() {
         return idAddress;
     }
 
     public void setIdAddress(Long idAddress) {
         this.idAddress = idAddress;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getNeighborhood() {
@@ -49,28 +79,19 @@ public class AddressFormDto {
         this.complement = complement;
     }
 
-    public String getNumber() {
-        return number;
+    public Long getCity() {
+        return city;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setCity(Long city) {
+        this.city = city;
     }
 
-    public String getStreet() {
-        return street;
+    public Long getCustomer() {
+        return customer;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setCustomer(Long customer) {
+        this.customer = customer;
     }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
 }

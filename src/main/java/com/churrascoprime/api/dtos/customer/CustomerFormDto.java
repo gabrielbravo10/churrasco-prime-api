@@ -4,24 +4,28 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class CustomerFormDto {
-    
+
     private Long idCustomer;
-    
+
     @NotNull
-    @Size(min = 11, max =  11)
+    @Size(min = 11, max = 11)
     private String cpf;
 
     @NotNull
-    @Size(min = 3, max =  100)
+    @Size(min = 3, max = 100)
     private String firstName;
 
     @NotNull
-    @Size(min = 3, max =  100)
-    private String lasttName;
+    @Size(min = 3, max = 100)
+    private String lastName;
 
     @NotNull
-    @Size(min = 15, max =  50)
+    @Size(min = 15, max = 50)
     private String email;
+
+    @NotNull
+    @Size(min = 6, max = 20)
+    private String password;
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -47,12 +51,12 @@ public class CustomerFormDto {
         this.firstName = firstName;
     }
 
-    public String getLasttName() {
-        return lasttName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLasttName(String lasttName) {
-        this.lasttName = lasttName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -63,4 +67,11 @@ public class CustomerFormDto {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

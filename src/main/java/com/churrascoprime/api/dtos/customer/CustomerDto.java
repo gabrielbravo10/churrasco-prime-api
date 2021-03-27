@@ -3,11 +3,9 @@ package com.churrascoprime.api.dtos.customer;
 public class CustomerDto {
 
     private Long idCustomer;
-    private String cpf;
     private String firstName;
-    private String lasttName;
+    private String lastName;
     private String email;
-    private String password;
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -15,14 +13,6 @@ public class CustomerDto {
 
     public void setIdCustomer(Long idCustomer) {
         this.idCustomer = idCustomer;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public String getFirstName() {
@@ -33,12 +23,12 @@ public class CustomerDto {
         this.firstName = firstName;
     }
 
-    public String getLasttName() {
-        return lasttName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLasttName(String lasttName) {
-        this.lasttName = lasttName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -47,13 +37,5 @@ public class CustomerDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
