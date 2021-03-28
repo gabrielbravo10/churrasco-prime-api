@@ -6,6 +6,7 @@ import com.churrascoprime.api.models.ProductModel;
 import com.churrascoprime.api.models.ProviderModel;
 import com.churrascoprime.api.repositories.CategoryRepository;
 import com.churrascoprime.api.repositories.ProductRepository;
+import com.churrascoprime.api.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -54,12 +55,17 @@ public class ProductService {
         productRepository.save(productModel);
     }
 
-    public Page<ProductModel> findProductsByProviderInCategory(Long providerId, List<Long> categoryIds, Pageable pageable) {
+    public Page<ProductModel> findProductsByProviderInCategory(Long providerId, List<Long> categoryIds,
+                                                               String filter, Pageable pageable) {
         ProviderModel provider = providerService.findById(providerId);
         if (categoryIds.isEmpty()) {
-            return productRepository.findDistinctByProvider(provider, pageable);
+            if (StringUtils.isValid(filter)) {
+                return productRepository.
+                        findByDateDeletedIsNullAndProviderAndNameContainingIgnoreCase(provider, filter, pageable);
+            }
+            return productRepository.findByDateDeletedIsNullAndProvider(provider, pageable);
         }
         List<CategoryModel> categories = categoryRepository.findAllById(categoryIds);
-        return productRepository.findDistinctByProviderAndCategoriesIn(provider, categories, pageable);
+        return productRepository.findByDateDeletedIsNullAndProviderAndCategoriesIn(provider, categories, pageable);
     }
 }

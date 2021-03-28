@@ -85,10 +85,12 @@ public class ProductController {
     public ResponseEntity<Page<ProductDto>> test(
             @PathVariable("id") Long providerId,
             @RequestParam(value = "categories", defaultValue = "") String categories,
+            @RequestParam(value = "filter", required = false) String filter,
             Pageable pageable
     ) {
         List<Long> categoryIds = URL.decodeIntList(categories);
-        Page<ProductModel> page = productService.findProductsByProviderInCategory(providerId, categoryIds, pageable);
+        Page<ProductModel> page = productService.findProductsByProviderInCategory(
+                providerId, categoryIds, filter, pageable);
         Page<ProductDto> productsDtos = page.map(product -> modelMapper.map(product, ProductDto.class));
         return ResponseEntity.ok(productsDtos);
     }

@@ -15,9 +15,14 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductModel, Long> {
     Page<ProductModel> findAllByDateDeletedIsNull(Pageable pageable);
 
-    Page<ProductModel> findDistinctByProviderAndCategoriesIn(@Param("provider") ProviderModel provider,
-                                                             @Param("categories") List<CategoryModel> categories,
-                                                             Pageable pageable);
+    Page<ProductModel> findByDateDeletedIsNullAndProviderAndCategoriesIn(
+            @Param("provider") ProviderModel provider,
+            @Param("categories") List<CategoryModel> categories,
+            Pageable pageable);
 
-    Page<ProductModel> findDistinctByProvider(@Param("provider") ProviderModel provider, Pageable pageable);
+    Page<ProductModel> findByDateDeletedIsNullAndProvider(@Param("provider") ProviderModel provider,
+                                                          Pageable pageable);
+
+    Page<ProductModel> findByDateDeletedIsNullAndProviderAndNameContainingIgnoreCase(
+            @Param("provider") ProviderModel providerModel, String name, Pageable pageable);
 }

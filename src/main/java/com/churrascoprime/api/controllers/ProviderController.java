@@ -4,7 +4,6 @@ import com.churrascoprime.api.dtos.provider.ProviderDto;
 import com.churrascoprime.api.dtos.provider.ProviderFormDto;
 import com.churrascoprime.api.models.ProviderModel;
 import com.churrascoprime.api.services.ProviderService;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,11 +16,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/providers")
 public class ProviderController {
-    
+
     private final ProviderService providerService;
     private final ModelMapper modelMapper;
 
@@ -38,8 +39,12 @@ public class ProviderController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProviderDto>> index(@PageableDefault(sort = "name") Pageable pageable) {
-        Page<ProviderDto> providers = providerService.findAll(pageable).map(provider -> modelMapper.map(provider, ProviderDto.class));
+    public ResponseEntity<Page<ProviderDto>> index(
+            @RequestParam(value = "filter", required = false) String filter,
+            @PageableDefault(sort = "name") Pageable pageable) {
+        Page<ProviderDto> providers = providerService
+                .findAll(filter, pageable)
+                .map(provider -> modelMapper.map(provider, ProviderDto.class));
         return ResponseEntity.ok(providers);
     }
 
@@ -66,5 +71,14 @@ public class ProviderController {
     public ResponseEntity<?> delete(@PathVariable Long idProvider) {
         providerService.delete(idProvider);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<List<ProviderDto>> findTop3() {
+        List<ProviderDto> providers = providerService.findTop3ActiveProviders()
+                .stream()
+                .map(provider -> modelMapper.map(provider, ProviderDto.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(providers);
     }
 }

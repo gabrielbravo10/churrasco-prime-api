@@ -3,16 +3,18 @@ package com.churrascoprime.api.services;
 import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.ProviderModel;
 import com.churrascoprime.api.repositories.ProviderRepository;
+import com.churrascoprime.api.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ProviderService {
-    
+
     private final ProviderRepository providerRepository;
     private static final String NOT_FOUND = "provider.notFound";
 
@@ -25,7 +27,10 @@ public class ProviderService {
         return providerRepository.findById(idProvider).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
     }
 
-    public Page<ProviderModel> findAll(Pageable pageable) {
+    public Page<ProviderModel> findAll(String filter, Pageable pageable) {
+        if (StringUtils.isValid(filter)) {
+            return providerRepository.findAllByDateDeletedIsNullAndNameContainingIgnoreCase(filter, pageable);
+        }
         return providerRepository.findAllByDateDeletedIsNull(pageable);
     }
 
@@ -43,5 +48,9 @@ public class ProviderService {
         ProviderModel provider = findById(idProvider);
         provider.setDateDeleted(new Date());
         providerRepository.save(provider);
+    }
+
+    public List<ProviderModel> findTop3ActiveProviders() {
+        return providerRepository.findTop3ByActiveIsTrueAndDateDeletedIsNullOrderByRatingDesc();
     }
 }
