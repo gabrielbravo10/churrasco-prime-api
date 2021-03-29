@@ -1,7 +1,5 @@
 package com.churrascoprime.api.services;
 
-
-
 import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.AddressModel;
 import com.churrascoprime.api.repositories.AddressRepository;
@@ -31,8 +29,8 @@ public class AddressService {
         return addressRepository.findAllByDateDeletedIsNull(pageable);
     }
 
-    public AddressModel save(AddressModel addres) {
-        return addressRepository.save(addres);
+    public AddressModel save(AddressModel address) {
+        return addressRepository.save(address);
     }
 
     public AddressModel update(AddressModel updatedAddress) {
