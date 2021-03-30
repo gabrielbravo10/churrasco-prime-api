@@ -6,6 +6,7 @@ public class CustomerDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String telephone;
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -37,5 +38,13 @@ public class CustomerDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+    
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

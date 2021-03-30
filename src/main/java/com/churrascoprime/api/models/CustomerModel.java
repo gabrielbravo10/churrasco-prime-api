@@ -23,6 +23,10 @@ public class CustomerModel extends BaseModel {
 
     private String password;
 
+    @OneToMany
+    @JoinColumn(name = "telephone")
+    private TelephoneModel telephone;
+
     public Long getIdCustomer() {
         return idCustomer;
     }
@@ -71,11 +75,20 @@ public class CustomerModel extends BaseModel {
         this.password = password;
     }
 
+    public TelephoneModel getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(TelephoneModel telephone) {
+        this.telephone = telephone;
+    }
+
     public void update(CustomerModel updatedCustomer) {
         this.cpf = updatedCustomer.getCpf();
         this.firstName = updatedCustomer.getFirstName();
         this.lastName = updatedCustomer.getLastName();
         this.email = updatedCustomer.getEmail();
         this.password = updatedCustomer.getPassword();
+        this.telephone = updatedCustomer.getTelephone();
     }
 }

@@ -27,6 +27,9 @@ public class CustomerFormDto {
     @Size(min = 6, max = 20)
     private String password;
 
+    @Size(min = 8, max = 9)
+    private String telephone;
+
     public Long getIdCustomer() {
         return idCustomer;
     }
@@ -73,5 +76,13 @@ public class CustomerFormDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+    
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }
