@@ -5,7 +5,7 @@ import com.churrascoprime.api.dtos.customer.CustomerDto;
 public class TelephoneDto {
     
     private Long idTelephone;
-    private Long telephoneNumber;
+    private String telephoneNumber;
     private CustomerDto customer;
 
     public Long getIdTelephone() {
@@ -16,11 +16,11 @@ public class TelephoneDto {
         this.idTelephone = idTelephone;
     }
 
-    public Long getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(Long telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

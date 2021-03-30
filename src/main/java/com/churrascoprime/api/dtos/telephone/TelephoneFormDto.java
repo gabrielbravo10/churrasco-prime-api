@@ -9,7 +9,7 @@ public class TelephoneFormDto {
 
     @NotNull
     @Size(min = 8, max = 9)
-    private Long telephoneNumber;
+    private String telephoneNumber;
 
     @NotNull
     private Long customer;
@@ -22,11 +22,11 @@ public class TelephoneFormDto {
         this.idTelephone = idTelephone;
     }
 
-    public Long getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(Long telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

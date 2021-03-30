@@ -62,7 +62,7 @@ public class AddressController {
     }
 
     @Transactional
-    @PostMapping("/{idAddress}")
+    @PutMapping("/{idAddress}")
     public ResponseEntity<AddressDto> update(@PathVariable Long idAddress, @Valid @RequestBody AddressFormDto addressFormDto) {
         AddressModel address = modelMapper.map(addressFormDto, AddressModel.class);
         address.setIdAddress(idAddress);

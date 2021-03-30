@@ -19,15 +19,16 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/telephone")
+@RequestMapping("/telephones")
 public class TelephoneController {
-    
+
     private final TelephoneService telephoneService;
     private final CustomerService customerService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public TelephoneController(TelephoneService telephoneService, CustomerService customerService, ModelMapper modelMapper) {
+    public TelephoneController(TelephoneService telephoneService, CustomerService customerService,
+            ModelMapper modelMapper) {
         this.telephoneService = telephoneService;
         this.customerService = customerService;
         this.modelMapper = modelMapper;
@@ -48,7 +49,8 @@ public class TelephoneController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<TelephoneDto> store(@Valid @RequestBody TelephoneFormDto telephoneFormDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<TelephoneDto> store(@Valid @RequestBody TelephoneFormDto telephoneFormDto,
+            UriComponentsBuilder uriComponentsBuilder) {
         TelephoneModel telephone = modelMapper.map(telephoneFormDto, TelephoneModel.class);
         addCustomer(telephone, telephoneFormDto);
         TelephoneDto newTelephone = modelMapper.map(telephoneService.save(telephone), TelephoneDto.class);
@@ -57,8 +59,9 @@ public class TelephoneController {
     }
 
     @Transactional
-    @PostMapping("/{idTelephone}")
-    public ResponseEntity<TelephoneDto> update(@PathVariable Long idTelephone, @Valid @RequestBody TelephoneFormDto telephoneFormDto) {
+    @PutMapping("/{idTelephone}")
+    public ResponseEntity<TelephoneDto> update(@PathVariable Long idTelephone,
+            @Valid @RequestBody TelephoneFormDto telephoneFormDto) {
         TelephoneModel telephone = modelMapper.map(telephoneFormDto, TelephoneModel.class);
         telephone.setIdTelephone(idTelephone);
         TelephoneDto updatedAddress = modelMapper.map(telephoneService.update(telephone), TelephoneDto.class);
@@ -75,8 +78,5 @@ public class TelephoneController {
     private void addCustomer(TelephoneModel telephone, TelephoneFormDto telephoneFormDto) {
         telephone.setCustomer(customerService.findById(telephoneFormDto.getCustomer()));
     }
-
-
-
 
 }

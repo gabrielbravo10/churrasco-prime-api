@@ -104,7 +104,8 @@ CREATE TABLE tb_telephone(
     date_deleted timestamp,
     PRIMARY KEY (id_telephone),
     KEY (id_customer),
-    FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
+    FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer),
+    CONSTRAINT fk_telephone_customer FOREIGN KEY (id_customer) REFERENCES tb_customer(id_customer)
 );
 
 DROP TABLE IF EXISTS tb_product_category;

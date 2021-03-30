@@ -12,10 +12,10 @@ public class TelephoneModel extends BaseModel {
     private Long idTelephone;
 
     @Column(name = "telephone_number")
-    private Long telephoneNumber;
+    private String telephoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "id_customer", foreignKey = @ForeignKey(name = "id_customer"))
+    @JoinColumn(name = "id_customer", foreignKey = @ForeignKey(name = "fk_telephone_customer"))
     private CustomerModel customer;
 
     public Long getIdTelephone() {
@@ -26,11 +26,11 @@ public class TelephoneModel extends BaseModel {
         this.idTelephone = idTelephone;
     }
 
-    public Long getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(Long telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
@@ -43,7 +43,6 @@ public class TelephoneModel extends BaseModel {
     }
 
     public void update(TelephoneModel updatedTelephoneModel) {
-        this.idTelephone = getIdTelephone();
         this.telephoneNumber = getTelephoneNumber();
         this.customer = getCustomer();
     }
