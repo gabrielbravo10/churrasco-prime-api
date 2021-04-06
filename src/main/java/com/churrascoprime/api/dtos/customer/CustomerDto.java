@@ -1,12 +1,16 @@
 package com.churrascoprime.api.dtos.customer;
 
+import com.churrascoprime.api.dtos.telephone.TelephoneDto;
+
+import java.util.Set;
+
 public class CustomerDto {
 
     private Long idCustomer;
     private String firstName;
     private String lastName;
     private String email;
-    private String telephone;
+//    private Set<TelephoneDto> telephones;
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -40,11 +44,11 @@ public class CustomerDto {
         this.email = email;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-    
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+//    public Set<TelephoneDto> getTelephones() {
+//        return telephones;
+//    }
+//
+//    public void setTelephones(Set<TelephoneDto> telephones) {
+//        this.telephones = telephones;
+//    }
 }

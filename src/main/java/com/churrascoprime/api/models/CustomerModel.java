@@ -1,6 +1,9 @@
 package com.churrascoprime.api.models;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_customer")
@@ -23,9 +26,8 @@ public class CustomerModel extends BaseModel {
 
     private String password;
 
-    @OneToMany
-    @JoinColumn(name = "telephone")
-    private TelephoneModel telephone;
+//    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+//    private Set<TelephoneModel> telephones = new HashSet<>();
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -75,13 +77,19 @@ public class CustomerModel extends BaseModel {
         this.password = password;
     }
 
-    public TelephoneModel getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(TelephoneModel telephone) {
-        this.telephone = telephone;
-    }
+//    public Set<TelephoneModel> getTelephones() {
+//        if (telephones == null) {
+//            Collections.emptySet();
+//        }
+//        return telephones;
+//    }
+//
+//    public void addTelephone(TelephoneModel telephone) {
+//        if (telephones == null) {
+//            telephones = new HashSet<>();
+//        }
+//        telephones.add(telephone);
+//    }
 
     public void update(CustomerModel updatedCustomer) {
         this.cpf = updatedCustomer.getCpf();
@@ -89,6 +97,6 @@ public class CustomerModel extends BaseModel {
         this.lastName = updatedCustomer.getLastName();
         this.email = updatedCustomer.getEmail();
         this.password = updatedCustomer.getPassword();
-        this.telephone = updatedCustomer.getTelephone();
+//        this.telephones = updatedCustomer.getTelephones();
     }
 }

@@ -17,6 +17,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/telephones")
@@ -32,6 +34,15 @@ public class TelephoneController {
         this.telephoneService = telephoneService;
         this.customerService = customerService;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("/customer/{id}")
+    public ResponseEntity<List<TelephoneDto>> findByCustomerId(@PathVariable Long id){
+        List<TelephoneDto> telephones = telephoneService.findByCustomer(id)
+                .stream()
+                .map(telephoneModel -> modelMapper.map(telephoneModel, TelephoneDto.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(telephones);
     }
 
     @GetMapping("/{idTelephone}")
@@ -53,7 +64,8 @@ public class TelephoneController {
             UriComponentsBuilder uriComponentsBuilder) {
         TelephoneModel telephone = modelMapper.map(telephoneFormDto, TelephoneModel.class);
         addCustomer(telephone, telephoneFormDto);
-        TelephoneDto newTelephone = modelMapper.map(telephoneService.save(telephone), TelephoneDto.class);
+        TelephoneModel telephoneModel = telephoneService.save(telephone);
+        TelephoneDto newTelephone = modelMapper.map(telephoneModel, TelephoneDto.class);
         URI uri = uriComponentsBuilder.path("/telephones/{id}").buildAndExpand(newTelephone.getIdTelephone()).toUri();
         return ResponseEntity.created(uri).body(newTelephone);
     }
@@ -78,5 +90,4 @@ public class TelephoneController {
     private void addCustomer(TelephoneModel telephone, TelephoneFormDto telephoneFormDto) {
         telephone.setCustomer(customerService.findById(telephoneFormDto.getCustomer()));
     }
-
 }

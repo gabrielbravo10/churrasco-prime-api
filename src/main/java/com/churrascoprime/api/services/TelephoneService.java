@@ -8,18 +8,33 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class TelephoneService {
     
     private final TelephoneRepository telephoneRepository;
     private static final String NOT_FOUND = "telephone.notFound";
+    private CustomerService customerService;
 
     @Autowired
-    public TelephoneService(TelephoneRepository telephoneRepository) {
+    public TelephoneService(TelephoneRepository telephoneRepository, CustomerService customerService) {
         this.telephoneRepository = telephoneRepository;
+        this.customerService = customerService;
     }
+
+    public Set<TelephoneModel> findByCustomer(Long id) {
+        Set<TelephoneModel> telephones = telephoneRepository.
+                findDistinctByDateDeletedIsNullAndCustomer(customerService.findById(id));
+        if (telephones == null || telephones.isEmpty()) {
+            throw new RecordNotFoundException(NOT_FOUND);
+        }
+        return telephones;
+    }
+
 
     public TelephoneModel findById(Long idTelephone) {
         return telephoneRepository.findById(idTelephone).orElseThrow(() -> new RecordNotFoundException(NOT_FOUND));
@@ -29,8 +44,8 @@ public class TelephoneService {
         return telephoneRepository.findAllByDateDeletedIsNull(pageable);
     }
 
-    public TelephoneModel save(TelephoneModel address) {
-        return telephoneRepository.save(address);
+    public TelephoneModel save(TelephoneModel telephone) {
+        return telephoneRepository.save(telephone);
     }
 
     public TelephoneModel update(TelephoneModel updatedTelephone) {

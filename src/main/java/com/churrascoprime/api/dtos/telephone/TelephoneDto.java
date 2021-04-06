@@ -6,7 +6,7 @@ public class TelephoneDto {
     
     private Long idTelephone;
     private String telephoneNumber;
-    private CustomerDto customer;
+//    private CustomerDto customer;
 
     public Long getIdTelephone() {
         return idTelephone;
@@ -24,12 +24,12 @@ public class TelephoneDto {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public CustomerDto getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDto customer) {
-        this.customer = customer;
-    }
+//    public CustomerDto getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(CustomerDto customer) {
+//        this.customer = customer;
+//    }
 
 }

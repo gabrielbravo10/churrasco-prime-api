@@ -22,11 +22,15 @@ import java.net.URI;
 public class CustomerController {
 
     private final CustomerService customerService;
+    //    private final TelephoneService telephoneService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CustomerController(CustomerService customerService, ModelMapper modelMapper) {
+    public CustomerController(CustomerService customerService,
+//                              TelephoneService telephoneService,
+                              ModelMapper modelMapper) {
         this.customerService = customerService;
+//        this.telephoneService = telephoneService;
         this.modelMapper = modelMapper;
     }
 
@@ -47,7 +51,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDto> store(@Valid @RequestBody CustomerFormDto customerFormDto,
                                              UriComponentsBuilder uriComponentsBuilder) {
         CustomerModel customer = modelMapper.map(customerFormDto, CustomerModel.class);
-        CustomerDto newCustomer = modelMapper.map(customerService.save(customer), CustomerDto.class);
+        CustomerModel savedCustomer = customerService.save(customer);
+//        addTelephone(savedCustomer, customerFormDto);
+        CustomerDto newCustomer = modelMapper.map(savedCustomer, CustomerDto.class);
         URI uri = uriComponentsBuilder.path("/customers/{id}").buildAndExpand(newCustomer.getIdCustomer()).toUri();
         return ResponseEntity.created(uri).body(newCustomer);
     }
@@ -57,7 +63,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDto> update(@PathVariable Long idCustomer, @Valid @RequestBody CustomerFormDto customerFormDto) {
         CustomerModel customer = modelMapper.map(customerFormDto, CustomerModel.class);
         customer.setIdCustomer(idCustomer);
-        CustomerDto updatedCustomer = modelMapper.map(customerService.update(customer), CustomerDto.class);
+        CustomerModel savedCustomer = customerService.update(customer);
+//        addTelephone(savedCustomer, customerFormDto);
+        CustomerDto updatedCustomer = modelMapper.map(savedCustomer, CustomerDto.class);
         return ResponseEntity.ok().body(updatedCustomer);
     }
 
@@ -67,4 +75,16 @@ public class CustomerController {
         customerService.delete(idCustomer);
         return ResponseEntity.noContent().build();
     }
+
+//    private void addTelephone(CustomerModel customerModel, CustomerFormDto customerFormDto) {
+//        if (customerFormDto.getTelephones() != null && !customerFormDto.getTelephones().isEmpty()) {
+//            for (String telephoneNumber : customerFormDto.getTelephones()) {
+//                TelephoneModel telephoneModel = new TelephoneModel();
+//                telephoneModel.setCustomer(customerModel);
+//                telephoneModel.setTelephoneNumber(telephoneNumber);
+//                telephoneService.save(telephoneModel);
+//                customerModel.addTelephone(telephoneModel);
+//            }
+//        }
+//    }
 }

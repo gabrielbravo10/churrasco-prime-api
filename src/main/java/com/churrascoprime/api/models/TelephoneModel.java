@@ -43,8 +43,8 @@ public class TelephoneModel extends BaseModel {
     }
 
     public void update(TelephoneModel updatedTelephoneModel) {
-        this.telephoneNumber = getTelephoneNumber();
-        this.customer = getCustomer();
+        this.telephoneNumber = updatedTelephoneModel.getTelephoneNumber();
+        this.customer = updatedTelephoneModel.getCustomer();
     }
 
 }

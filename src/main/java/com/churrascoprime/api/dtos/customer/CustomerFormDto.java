@@ -2,6 +2,7 @@ package com.churrascoprime.api.dtos.customer;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class CustomerFormDto {
 
@@ -27,8 +28,8 @@ public class CustomerFormDto {
     @Size(min = 6, max = 20)
     private String password;
 
-    @Size(min = 8, max = 9)
-    private String telephone;
+//    @NotNull
+//    private Set<String> telephones;
 
     public Long getIdCustomer() {
         return idCustomer;
@@ -78,11 +79,11 @@ public class CustomerFormDto {
         this.password = password;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-    
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
+//    public Set<String> getTelephones() {
+//        return telephones;
+//    }
+//
+//    public void setTelephones(Set<String> telephones) {
+//        this.telephones = telephones;
+//    }
 }
