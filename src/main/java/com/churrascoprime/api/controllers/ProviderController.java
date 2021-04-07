@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/providers")
 public class ProviderController {
 
@@ -41,7 +43,7 @@ public class ProviderController {
     @GetMapping
     public ResponseEntity<Page<ProviderDto>> index(
             @RequestParam(value = "filter", required = false) String filter,
-            @PageableDefault(sort = "name") Pageable pageable) {
+            @PageableDefault(sort = {"active"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<ProviderDto> providers = providerService
                 .findAll(filter, pageable)
                 .map(provider -> modelMapper.map(provider, ProviderDto.class));
