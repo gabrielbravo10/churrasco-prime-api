@@ -1,8 +1,5 @@
 package com.churrascoprime.api.dtos.customer;
 
-import com.churrascoprime.api.dtos.telephone.TelephoneDto;
-
-import java.util.Set;
 
 public class CustomerDto {
 

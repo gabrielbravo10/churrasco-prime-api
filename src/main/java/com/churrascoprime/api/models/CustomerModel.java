@@ -1,9 +1,6 @@
 package com.churrascoprime.api.models;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "tb_customer")

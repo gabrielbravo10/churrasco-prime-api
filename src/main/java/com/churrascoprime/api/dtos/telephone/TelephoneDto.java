@@ -1,7 +1,5 @@
 package com.churrascoprime.api.dtos.telephone;
 
-import com.churrascoprime.api.dtos.customer.CustomerDto;
-
 public class TelephoneDto {
     
     private Long idTelephone;
