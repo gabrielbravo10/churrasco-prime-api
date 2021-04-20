@@ -55,7 +55,7 @@ public class ProductService {
         productRepository.save(productModel);
     }
 
-    public Page<ProductModel> findProductsByProviderInCategory(Long providerId, List<Long> categoryIds,
+    public Page<ProductModel> findProductsByProviderAndCategory(Long providerId, List<Long> categoryIds,
                                                                String filter, Pageable pageable) {
         ProviderModel provider = providerService.findById(providerId);
         if (categoryIds.isEmpty()) {

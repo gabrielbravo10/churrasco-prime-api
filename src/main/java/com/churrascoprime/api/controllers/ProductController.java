@@ -22,6 +22,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/products")
 public class ProductController {
 
@@ -81,15 +82,15 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/test/{id}")
-    public ResponseEntity<Page<ProductDto>> test(
+    @GetMapping("/provider/{id}")
+    public ResponseEntity<Page<ProductDto>> findProductsByProviderAndCategory(
             @PathVariable("id") Long providerId,
             @RequestParam(value = "categories", defaultValue = "") String categories,
             @RequestParam(value = "filter", required = false) String filter,
             Pageable pageable
     ) {
         List<Long> categoryIds = URL.decodeIntList(categories);
-        Page<ProductModel> page = productService.findProductsByProviderInCategory(
+        Page<ProductModel> page = productService.findProductsByProviderAndCategory(
                 providerId, categoryIds, filter, pageable);
         Page<ProductDto> productsDtos = page.map(product -> modelMapper.map(product, ProductDto.class));
         return ResponseEntity.ok(productsDtos);
