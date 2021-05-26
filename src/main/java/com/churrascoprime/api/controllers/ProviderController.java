@@ -1,7 +1,9 @@
 package com.churrascoprime.api.controllers;
 
+import com.churrascoprime.api.constants.FileConstant;
 import com.churrascoprime.api.dtos.provider.ProviderDto;
 import com.churrascoprime.api.dtos.provider.ProviderFormDto;
+import com.churrascoprime.api.exceptions.NotAnImageFileException;
 import com.churrascoprime.api.models.ProviderModel;
 import com.churrascoprime.api.services.ProviderService;
 import org.modelmapper.ModelMapper;
@@ -10,19 +12,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping("/providers")
+@RequestMapping(path = {"/", "/providers"})
 public class ProviderController {
 
     private final ProviderService providerService;
@@ -52,9 +59,12 @@ public class ProviderController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<ProviderDto> store(@Valid @RequestBody ProviderFormDto providerFormDto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<ProviderDto> store(
+            @Valid @RequestBody ProviderFormDto providerFormDto,
+            @RequestPart("imgFile") MultipartFile imgFile,
+            UriComponentsBuilder uriComponentsBuilder) throws IOException, NotAnImageFileException {
         ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
-        ProviderDto newProvider = modelMapper.map(providerService.save(provider), ProviderDto.class);
+        ProviderDto newProvider = modelMapper.map(providerService.save(provider, imgFile), ProviderDto.class);
         URI uri = uriComponentsBuilder.path("/providers/{id}").buildAndExpand(newProvider.getIdProvider()).toUri();
         return ResponseEntity.created(uri).body(newProvider);
     }
@@ -82,5 +92,10 @@ public class ProviderController {
                 .map(provider -> modelMapper.map(provider, ProviderDto.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(providers);
+    }
+
+    @GetMapping(path = "/Users/gabrielbravo/Desktop/Testing/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImg( @PathVariable("fileName") String fileName) throws IOException {
+        return Files.readAllBytes(Paths.get(FileConstant.USER_FOLDER + FileConstant.FORWARD_SLASH + fileName));
     }
 }
