@@ -15,7 +15,6 @@ public class ProviderFormDto {
     @Size(min = 14, max = 15)
     private String cnpj;
 
-    @NotNull
     private String imageUrl;
 
     private boolean active;

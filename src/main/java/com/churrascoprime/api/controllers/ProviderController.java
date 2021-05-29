@@ -50,7 +50,7 @@ public class ProviderController {
     @GetMapping
     public ResponseEntity<Page<ProviderDto>> index(
             @RequestParam(value = "filter", required = false) String filter,
-            @PageableDefault(sort = {"active"}, direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(sort = {"active", "rating"}, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<ProviderDto> providers = providerService
                 .findAll(filter, pageable)
                 .map(provider -> modelMapper.map(provider, ProviderDto.class));
@@ -60,7 +60,7 @@ public class ProviderController {
     @Transactional
     @PostMapping
     public ResponseEntity<ProviderDto> store(
-            @Valid @RequestBody ProviderFormDto providerFormDto,
+            @Valid @RequestPart("provider") ProviderFormDto providerFormDto,
             @RequestPart("imgFile") MultipartFile imgFile,
             UriComponentsBuilder uriComponentsBuilder) throws IOException, NotAnImageFileException {
         ProviderModel provider = modelMapper.map(providerFormDto, ProviderModel.class);
@@ -95,7 +95,7 @@ public class ProviderController {
     }
 
     @GetMapping(path = "/Users/gabrielbravo/Desktop/Testing/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getImg( @PathVariable("fileName") String fileName) throws IOException {
+    public byte[] getImg(@PathVariable("fileName") String fileName) throws IOException {
         return Files.readAllBytes(Paths.get(FileConstant.USER_FOLDER + FileConstant.FORWARD_SLASH + fileName));
     }
 }

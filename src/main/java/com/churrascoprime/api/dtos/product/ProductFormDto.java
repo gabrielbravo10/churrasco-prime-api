@@ -23,7 +23,6 @@ public class ProductFormDto {
     @NotNull
     private Double unitPrice;
 
-    @NotNull
     private String imageUrl;
 
     private boolean active;
