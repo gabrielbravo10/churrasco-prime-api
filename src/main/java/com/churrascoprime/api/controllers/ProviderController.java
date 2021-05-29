@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
-@RequestMapping(path = {"/", "/providers"})
+@RequestMapping("/providers")
 public class ProviderController {
 
     private final ProviderService providerService;
@@ -94,8 +94,9 @@ public class ProviderController {
         return ResponseEntity.ok(providers);
     }
 
-    @GetMapping(path = "/Users/gabrielbravo/Desktop/Testing/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getImg(@PathVariable("fileName") String fileName) throws IOException {
+    @GetMapping(path = "/image/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImg(@PathVariable("name") String name) throws IOException {
+        String fileName = name.concat(FileConstant.DOT + FileConstant.JPG_EXTENSION);
         return Files.readAllBytes(Paths.get(FileConstant.USER_FOLDER + FileConstant.FORWARD_SLASH + fileName));
     }
 }

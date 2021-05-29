@@ -1,5 +1,6 @@
 package com.churrascoprime.api.controllers;
 
+import com.churrascoprime.api.constants.FileConstant;
 import com.churrascoprime.api.dtos.product.ProductDto;
 import com.churrascoprime.api.dtos.product.ProductFormDto;
 import com.churrascoprime.api.models.ProductModel;
@@ -12,13 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -94,6 +99,12 @@ public class ProductController {
                 providerId, categoryIds, filter, pageable);
         Page<ProductDto> productsDtos = page.map(product -> modelMapper.map(product, ProductDto.class));
         return ResponseEntity.ok(productsDtos);
+    }
+
+    @GetMapping(path = "/image/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getImg(@PathVariable("name") String name) throws IOException {
+        String fileName = name.concat(FileConstant.DOT + FileConstant.JPG_EXTENSION);
+        return Files.readAllBytes(Paths.get(FileConstant.USER_FOLDER + FileConstant.FORWARD_SLASH + fileName));
     }
 
     private void addProvider(ProductModel productModel, ProductFormDto productFormDto) {
