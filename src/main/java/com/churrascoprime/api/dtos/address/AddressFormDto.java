@@ -28,7 +28,6 @@ public class AddressFormDto {
     @NotNull
     private Long city;
 
-    @NotNull
     private Long customer;
 
     public Long getIdAddress() {

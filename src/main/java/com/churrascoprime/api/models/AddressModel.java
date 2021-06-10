@@ -32,6 +32,10 @@ public class AddressModel extends BaseModel {
             foreignKey = @ForeignKey(name = "fk_address_customer"))
     private CustomerModel customer;
 
+//    @OneToOne
+//    @PrimaryKeyJoinColumn
+//    private OrderModel order;
+
     public Long getIdAddress() {
         return idAddress;
     }
@@ -95,6 +99,14 @@ public class AddressModel extends BaseModel {
     public void setCustomer(CustomerModel customer) {
         this.customer = customer;
     }
+
+//    public OrderModel getOrder() {
+//        return order;
+//    }
+//
+//    public void setOrder(OrderModel order) {
+//        this.order = order;
+//    }
 
     public void update(AddressModel updateAddressModel) {
         this.zipCode = updateAddressModel.getZipCode();
