@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
-public class OrderModel extends BaseModel{
+public class OrderModel extends BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class OrderModel extends BaseModel{
     private CustomerModel customer;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_address", referencedColumnName = "id_address" )
+    @JoinColumn(name = "id_address", referencedColumnName = "id_address")
     private AddressModel address;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
@@ -130,4 +130,17 @@ public class OrderModel extends BaseModel{
             item.setOrder(this);
         }
     }
+
+    public void update(OrderModel updatedOrderModel) {
+        this.orderTrackingNumber = updatedOrderModel.getOrderTrackingNumber();
+        this.orderItems = updatedOrderModel.getOrderItems();
+        this.address = updatedOrderModel.getAddress();
+        this.customer = updatedOrderModel.getCustomer();
+        this.rating = updatedOrderModel.getRating();
+        this.orderPayment = updatedOrderModel.getOrderPayment();
+        this.totalPrice = updatedOrderModel.getTotalPrice();
+        this.totalQuantity = updatedOrderModel.getTotalQuantity();
+        this.orderStatus = updatedOrderModel.getOrderStatus();
+    }
+
 }
