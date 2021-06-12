@@ -2,8 +2,6 @@ package com.churrascoprime.api.controllers;
 
 import com.churrascoprime.api.dtos.Purchase;
 import com.churrascoprime.api.dtos.PurchaseResponse;
-import com.churrascoprime.api.models.AddressModel;
-import com.churrascoprime.api.models.CustomerModel;
 import com.churrascoprime.api.services.CheckoutService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

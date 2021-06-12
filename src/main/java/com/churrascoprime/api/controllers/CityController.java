@@ -18,6 +18,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/cities")
 public class CityController {
 
