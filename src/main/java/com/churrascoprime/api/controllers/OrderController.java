@@ -1,23 +1,13 @@
 package com.churrascoprime.api.controllers;
 
-import com.churrascoprime.api.dtos.city.CityDto;
-import com.churrascoprime.api.dtos.city.CityFormDto;
 import com.churrascoprime.api.dtos.order.OrderDto;
-import com.churrascoprime.api.models.CityModel;
-import com.churrascoprime.api.services.CityService;
 import com.churrascoprime.api.services.OrderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.net.URI;
 
 @RestController
 @CrossOrigin("http://localhost:4200")

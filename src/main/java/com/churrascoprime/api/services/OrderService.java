@@ -2,7 +2,6 @@ package com.churrascoprime.api.services;
 
 import com.churrascoprime.api.exceptions.RecordNotFoundException;
 import com.churrascoprime.api.models.OrderModel;
-import com.churrascoprime.api.models.ProductModel;
 import com.churrascoprime.api.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

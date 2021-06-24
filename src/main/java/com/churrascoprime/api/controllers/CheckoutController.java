@@ -27,5 +27,4 @@ public class CheckoutController {
         return purchaseResponse;
     }
 
-
 }

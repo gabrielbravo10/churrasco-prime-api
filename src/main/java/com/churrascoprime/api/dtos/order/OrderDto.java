@@ -2,17 +2,10 @@ package com.churrascoprime.api.dtos.order;
 
 import com.churrascoprime.api.dtos.address.AddressDto;
 import com.churrascoprime.api.dtos.customer.CustomerDto;
-import com.churrascoprime.api.models.AddressModel;
-import com.churrascoprime.api.models.CustomerModel;
-import com.churrascoprime.api.models.OrderItemModel;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 public class OrderDto {
-
 
     private Long idOrder;
     private String orderTrackingNumber;
@@ -24,7 +17,7 @@ public class OrderDto {
     private CustomerDto customer;
     private AddressDto address;
     private Date dateCreated;
-//    private Set<OrderItemModel> orderItems = new HashSet<>();
+    // private Set<OrderItemModel> orderItems = new HashSet<>();
 
     public Long getIdOrder() {
         return idOrder;
@@ -98,14 +91,13 @@ public class OrderDto {
         this.address = address;
     }
 
-//    public Set<OrderItemModel> getOrderItems() {
-//        return orderItems;
-//    }
-//
-//    public void setOrderItems(Set<OrderItemModel> orderItems) {
-//        this.orderItems = orderItems;
-//    }
-
+    // public Set<OrderItemModel> getOrderItems() {
+    // return orderItems;
+    // }
+    //
+    // public void setOrderItems(Set<OrderItemModel> orderItems) {
+    // this.orderItems = orderItems;
+    // }
 
     public Date getDateCreated() {
         return dateCreated;
