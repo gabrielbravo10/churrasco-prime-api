@@ -28,8 +28,6 @@ public class OrderModel extends BaseModel {
     @Column(name = "order_payment")
     private String orderPayment;
 
-    private Double rating;
-
     @ManyToOne
     @JoinColumn(name = "id_customer")
     private CustomerModel customer;
@@ -89,14 +87,6 @@ public class OrderModel extends BaseModel {
         this.orderPayment = orderPayment;
     }
 
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
     public CustomerModel getCustomer() {
         return customer;
     }
@@ -136,11 +126,9 @@ public class OrderModel extends BaseModel {
         this.orderItems = updatedOrderModel.getOrderItems();
         this.address = updatedOrderModel.getAddress();
         this.customer = updatedOrderModel.getCustomer();
-        this.rating = updatedOrderModel.getRating();
         this.orderPayment = updatedOrderModel.getOrderPayment();
         this.totalPrice = updatedOrderModel.getTotalPrice();
         this.totalQuantity = updatedOrderModel.getTotalQuantity();
         this.orderStatus = updatedOrderModel.getOrderStatus();
     }
-
 }

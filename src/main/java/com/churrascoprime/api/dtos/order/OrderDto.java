@@ -13,11 +13,9 @@ public class OrderDto {
     private Long totalQuantity;
     private String orderStatus;
     private String orderPayment;
-    private Double rating;
     private CustomerDto customer;
     private AddressDto address;
     private Date dateCreated;
-    // private Set<OrderItemModel> orderItems = new HashSet<>();
 
     public Long getIdOrder() {
         return idOrder;
@@ -67,14 +65,6 @@ public class OrderDto {
         this.orderPayment = orderPayment;
     }
 
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
     public CustomerDto getCustomer() {
         return customer;
     }
@@ -90,14 +80,6 @@ public class OrderDto {
     public void setAddress(AddressDto address) {
         this.address = address;
     }
-
-    // public Set<OrderItemModel> getOrderItems() {
-    // return orderItems;
-    // }
-    //
-    // public void setOrderItems(Set<OrderItemModel> orderItems) {
-    // this.orderItems = orderItems;
-    // }
 
     public Date getDateCreated() {
         return dateCreated;
