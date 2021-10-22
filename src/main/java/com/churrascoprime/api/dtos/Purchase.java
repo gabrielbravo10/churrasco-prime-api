@@ -15,4 +15,21 @@ public class Purchase {
     private AddressFormDto address;
     private OrderModel order;
     private Set<OrderItemModel> orderItems;
+
+    public OrderModel getOrder() {
+        return order;
+    }
+
+    public AddressFormDto getAddress() {
+        return address;
+    }
+
+    public CustomerFormDto getCustomer() {
+        return customer;
+    }
+
+    public Set<OrderItemModel> getOrderItems() {
+        return orderItems;
+    }
+
 }
